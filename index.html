@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watcher Zone - Watch Latest Movies Online</title>
+
+  <!-- 🔹 SEO -->
+  <meta name="description" content="Watch the latest movies and TV shows online with Watcher Zone. Stream action, comedy, horror, romance, and more.">
+  <meta name="keywords" content="movies, watch online, action, comedy, horror, romance, streaming">
+
+  <style>
+    :root {
+      --primary-color: #e50914;
+      --primary-dark: #b00610;
+      --bg-dark: #000;
+      --bg-darker: #111;
+      --bg-card: #222;
+      --text-light: #fff;
+      --text-gray: #999;
+      --border-color: #333;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(to bottom, var(--bg-dark), var(--bg-darker));
+      border-bottom: 2px solid var(--primary-color);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    /* Ads */
+    .ad-box {
+      background: var(--bg-darker);
+      border: 1px dashed #444;
+      color: var(--text-gray);
+      text-align: center;
+      padding: 20px;
+      margin: 15px auto;
+      max-width: 900px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      grid-column: 1 / -1;
+    }
+
+    /* Category Buttons */
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 10px;
+      padding: 0 10px;
+    }
+    .categories button {
+      background: green;
+      border: none;
+      color: var(--text-light);
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .categories button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    .categories button.active {
+      background: var(--primary-dark);
+      box-shadow: 0 0 0 2px var(--text-light);
+    }
+
+    /* Movies Grid */
+    .movies {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 10px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .movie {
+      background: var(--bg-card);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .movie.hidden {
+      display: none;
+    }
+    .movie:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
+    }
+    .movie a {
+      color: var(--text-light);
+      text-decoration: none;
+      display: block;
+      height: 100%;
+    }
+    .movie a:hover h3 {
+      color: var(--primary-color);
+    }
+    .movie img {
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      display: block;
+      background-color: #111;
+    }
+    .movie h3 {
+      text-align: center;
+      padding: 12px 8px;
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: normal;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.3;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin: 30px 0;
+      padding: 0 10px;
+    }
+    .pagination button {
+      background: var(--primary-color);
+      border: none;
+      color: var(--text-light);
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      min-width: 100px;
+    }
+    .pagination button:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    .pagination button:disabled {
+      background: var(--bg-card);
+      color: var(--text-gray);
+      cursor: not-allowed;
+      transform: none;
+    }
+    .page-info {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      padding: 0 15px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-darker);
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      padding: 20px;
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      margin-top: 30px;
+    }
+    footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Loading State */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      grid-column: 1 / -1;
+    }
+    
+    /* No Results Message */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      grid-column: 1 / -1;
+      color: var(--text-gray);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .movies {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 18px;
+      }
+      .movie img {
+        height: 200px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .movies {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 15px;
+      }
+      .movie img {
+        height: 180px;
+      }
+      .movie h3 {
+        font-size: 0.85rem;
+        height: 55px;
+        padding: 10px 6px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .movies {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 12px;
+      }
+      .movie img {
+        height: 170px;
+      }
+      .movie h3 {
+        font-size: 0.82rem;
+        height: 52px;
+        padding: 8px 5px;
+      }
+      .pagination {
+        gap: 10px;
+      }
+      .pagination button {
+        padding: 8px 15px;
+        min-width: 80px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+      .categories {
+        gap: 5px;
+      }
+      .categories button {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+      }
+      .movies {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 10px;
+      }
+      .movie img {
+        height: 160px;
+      }
+      .movie h3 {
+        font-size: 0.8rem;
+        height: 48px;
+        padding: 8px 4px;
+      }
+      .pagination {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .page-info {
+        order: 0;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .movies {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+      }
+      .movie img {
+        height: 150px;
+      }
+      .movie h3 {
+        font-size: 0.78rem;
+        height: 45px;
+        padding: 6px 3px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="logo">Watcher Zone</a>
+    <h6>Your favorite collection in Hind</h6>
+  </header>
+
+  <!-- Categories -->
+  <div class="categories">
+    <button data-category="all" class="active">All</button>
+    <button data-category="bollywood">Bollywood</button>
+    <button data-category="hollywood">Hollywood</button>
+    <button data-category="web">Web Series</button>
+    <button data-category="punjabi">Punjabi</button>
+    <button data-category="south">South Indian</button>
+    <button data-category="anime">Anime</button>
+  </div>
+
+  <!-- 🔹 Ad Space Between Categories -->
+  <div class="ad-box">[Your Ad Here – Mid Banner]</div>
+
+  <!-- Movies -->
+  <div class="movies" id="movies-container">
+    <div class="loading">Loading movies...</div>
+    <div class="no-results">No movies found in this category.</div>
+    
+    <div class="movie" data-category="south">
+      <a href="https://ladd3c07" target="_blank">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7makjU9koZIvcIQ4dyAvPckvYYJqih6eaeZ1nU5M1K09jyes1b1NCxOfw6S6JrzwfIp7RY1ANK16zfP98XTzFk7qvlivHJEwi-XivoN6KIr-ro2AJXjeXGtWHIAqtNQpyTSZmeEDl1D6PLAsIoqP7kR8whDyaUD6XzDSsCwct1-wneyss8HUlor92Tg9U/s16000/Lakadbaggey.jpg" alt="The Witcher Season 4 poster">
+        <h3>LakagBaggy (2025)</h3>
+      </a>
+    </div>
+    
+    <!-- آپ یہاں اپنی موویز شامل کر سکتے ہیں -->
+    <div class="movie" data-category="web">
+      <a href="https://links.kmhd.net/pack/0add3c07" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BOTQzMzNmMzUtODgwNS00YTdhLTg5N2MtOWU1YTc4YWY3NjRlXkEyXkFqcGc@._V1_SX500.jpg" alt="The Witcher Season 4 poster">
+        <h3>The Witcher S4 (Hindi) All</h3>
+      </a>
+    </div>
+    
+    <div class="movie" data-category="bollywood">
+      <a href="https://thetajstory.edgeone.app/" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BOWI3NDUzMGUtODAxOC00ZWY3LTk2ZmQtODIxY2U3OWY0YjMzXkEyXkFqcGc@._V1_.jpg" alt="The Taj Story poster">
+        <h3>The Taj Story (2025) HD</h3>
+      </a>
+    </div>
+    
+    <div class="movie" data-category="hollywood">
+      <a href="https://itwelcometoderry.edgeone.app/" target="_blank">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL8ZoO15N9okSLMX83Q3RgXBAgRr7BEjCF4uz67zePJK3SI5m8K1ic_KiFpWoepqA1ROvu8tIDBqOfqTfv78WTUAxGrQQoo5es5PU6MWANbwEaohWJ04mHRE2TLknI6JGPVDYI2sz7HMsEeAYifFgdYvpgj3lB_yJtn11nIMnhaoVotNDT50zSLhStDbHy/s16000/elcome%20to%20Derry%20(2025).jpg" alt="IT: Welcome to Derry poster">
+        <h3>IT: Welcome to Derry (2025) Hindi</h3>
+      </a>
+    </div>
+    
+    <div class="movie" data-category="punjabi">
+      <a href="https://gurunanakjahaz.edgeone.app/" target="_blank">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgdQyigCBEuZnep-n-GGkKdBjuHghXjJlG9ZKMEyJNL9ftvU_6vqZvksbjTjSCxChYW1HVE5j3ZLayhXKsVlDIYGTYIwoGY2U4lFeqEzT-7GKKRrF18ksNBsBoj_vqc3GT76C5IP4nzhFXYGneya36yztey6zD5DTSz_y-Z_SBLpkTXhsjnpDxUEq-M0t3O/s16000/Guru%20Nanak%20Jahaz.jpg" alt="Guru Nanak Jahaz poster">
+        <h3>Guru Nanak Jahaz (2025)</h3>
+      </a>
+    </div>
+    
+    <div class="movie" data-category="anime">
+      <a href="#" target="_blank">
+        <img src="https://catimages.org/images/2025/08/30/hunter-x-hunter.jpg" alt="Hunter x Hunter poster">
+        <h3>Hunter x Hunter S2 (2014)</h3>
+      </a>
+    </div>
+    
+    <div class="movie" data-category="south">
+      <a href="https://kramp2025.edgeone.app/" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BYmExNzNjZTQtNGI2NC00ODZkLWFiNzMtYTdlMzg1MzkzYmZiXkEyXkFqcGc@._V1_.jpg" alt="K Ramp poster">
+        <h3>K Ramp (2025) Hindi</h3>
+      </a>
+    </div>
+    
+    <!-- مزید موویز کے لیے خالی جگہ - آپ اپنی موویز یہاں شامل کر سکتے ہیں -->
+    
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button id="next-btn" disabled>Next</button>
+    <div class="page-info">Page <span id="current-page">1</span> of <span id="total-pages">1</span></div>
+    <button id="prev-btn" disabled>Previous</button>
+  </div>
+
+  <!-- 🔹 Ad Above Footer -->
+  <div class="ad-box">[Your Ad Here – Footer Ad]</div>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Watcher Zone. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('.categories button');
+      const movies = document.querySelectorAll('.movie');
+      const ads = document.querySelectorAll('.ad-box');
+      const loading = document.querySelector('.loading');
+      const noResults = document.querySelector('.no-results');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const currentPageEl = document.getElementById('current-page');
+      const totalPagesEl = document.getElementById('total-pages');
+      
+      // Pagination variables
+      let currentPage = 1;
+      const moviesPerPage = 12;
+      let currentCategory = 'all';
+      let filteredMovies = [];
+      
+      // Function to calculate total pages
+      function calculateTotalPages() {
+        return Math.ceil(filteredMovies.length / moviesPerPage);
+      }
+      
+      // Function to show movies for current page
+      function showPage(page) {
+        loading.style.display = 'block';
+        
+        setTimeout(() => {
+          const startIndex = (page - 1) * moviesPerPage;
+          const endIndex = startIndex + moviesPerPage;
+          
+          // Hide all movies first
+          movies.forEach(movie => {
+            movie.classList.add('hidden');
+          });
+          
+          // Show movies for current page
+          for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
+            if (filteredMovies[i]) {
+              filteredMovies[i].classList.remove('hidden');
+            }
+          }
+          
+          // Update pagination buttons
+          updatePaginationButtons();
+          
+          // Hide loading
+          loading.style.display = 'none';
+          
+          // Show no results message if needed
+          if (filteredMovies.length === 0) {
+            noResults.style.display = 'block';
+          } else {
+            noResults.style.display = 'none';
+          }
+        }, 300);
+      }
+      
+      // Function to update pagination buttons
+      function updatePaginationButtons() {
+        const totalPages = calculateTotalPages();
+        
+        currentPageEl.textContent = currentPage;
+        totalPagesEl.textContent = totalPages;
+        
+        // Enable/disable buttons
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+      }
+      
+      // Function to filter movies
+      function filterMovies(category) {
+        currentCategory = category;
+        currentPage = 1;
+        
+        // Show loading state
+        loading.style.display = 'block';
+        noResults.style.display = 'none';
+        
+        setTimeout(() => {
+          // Filter movies based on category
+          filteredMovies = Array.from(movies).filter(movie => {
+            return category === 'all' || movie.dataset.category === category;
+          });
+          
+          // Show first page
+          showPage(currentPage);
+          
+          // Update active button
+          buttons.forEach(btn => {
+            if (btn.dataset.category === category) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
+          });
+        }, 300);
+      }
+      
+      // Add event listeners to category buttons
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const category = btn.dataset.category;
+          filterMovies(category);
+        });
+      });
+      
+      // Add event listeners to pagination buttons
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          showPage(currentPage);
+        }
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        const totalPages = calculateTotalPages();
+        if (currentPage < totalPages) {
+          currentPage++;
+          showPage(currentPage);
+        }
+      });
+      
+      // Initialize with all movies showing
+      filterMovies('all');
+    });
+  </script>
+
+</body>
+</html>
