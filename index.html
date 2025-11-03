@@ -528,142 +528,153 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const buttons = document.querySelectorAll('.categories button');
-      const movies = document.querySelectorAll('.movie');
-      const loading = document.querySelector('.loading');
-      const noResults = document.querySelector('.no-results');
-      const prevBtn = document.getElementById('prev-btn');
-      const nextBtn = document.getElementById('next-btn');
-      const currentPageEl = document.getElementById('current-page');
-      const totalPagesEl = document.getElementById('total-pages');
-      const searchInput = document.getElementById('search-input');
+  const buttons = document.querySelectorAll('.categories button');
+  const movies = document.querySelectorAll('.movie');
+  const loading = document.querySelector('.loading');
+  const noResults = document.querySelector('.no-results');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const currentPageEl = document.getElementById('current-page');
+  const totalPagesEl = document.getElementById('total-pages');
+  const searchInput = document.getElementById('search-input');
+  
+  // Pagination variables
+  let currentPage = 1;
+  const moviesPerPage = 12;
+  let currentCategory = 'all';
+  let currentSearchTerm = '';
+  let filteredMovies = [];
+  
+  // Function to calculate total pages
+  function calculateTotalPages() {
+    return Math.ceil(filteredMovies.length / moviesPerPage);
+  }
+  
+  // Function to show movies for current page
+  function showPage(page) {
+    loading.style.display = 'block';
+    
+    setTimeout(() => {
+      const startIndex = (page - 1) * moviesPerPage;
+      const endIndex = startIndex + moviesPerPage;
       
-      // Pagination variables
-      let currentPage = 1;
-      const moviesPerPage = 12;
-      let currentCategory = 'all';
-      let currentSearchTerm = '';
-      let filteredMovies = [];
+      // Hide all movies first
+      movies.forEach(movie => {
+        movie.classList.add('hidden');
+      });
       
-      // Function to calculate total pages
-      function calculateTotalPages() {
-        return Math.ceil(filteredMovies.length / moviesPerPage);
+      // Show movies for current page
+      for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
+        if (filteredMovies[i]) {
+          filteredMovies[i].classList.remove('hidden');
+        }
       }
       
-      // Function to show movies for current page
-      function showPage(page) {
-        loading.style.display = 'block';
-        
-        setTimeout(() => {
-          const startIndex = (page - 1) * moviesPerPage;
-          const endIndex = startIndex + moviesPerPage;
-          
-          // Hide all movies first
-          movies.forEach(movie => {
-            movie.classList.add('hidden');
-          });
-          
-          // Show movies for current page
-          for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
-            if (filteredMovies[i]) {
-              filteredMovies[i].classList.remove('hidden');
-            }
-          }
-          
-          // Update pagination buttons
-          updatePaginationButtons();
-          
-          // Hide loading
-          loading.style.display = 'none';
-          
-          // Show no results message if needed
-          if (filteredMovies.length === 0) {
-            noResults.style.display = 'block';
-          } else {
-            noResults.style.display = 'none';
-          }
-        }, 300);
-      }
+      // Update pagination buttons
+      updatePaginationButtons();
       
-      // Function to update pagination buttons
-      function updatePaginationButtons() {
-        const totalPages = calculateTotalPages();
-        
-        currentPageEl.textContent = currentPage;
-        totalPagesEl.textContent = totalPages;
-        
-        // Enable/disable buttons
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-      }
+      // Hide loading
+      loading.style.display = 'none';
       
-      // Function to filter movies
-      function filterMovies(category, searchTerm) {
-        currentCategory = category;
-        currentSearchTerm = searchTerm;
-        currentPage = 1;
-        
-        // Show loading state
-        loading.style.display = 'block';
+      // Show no results message if needed
+      if (filteredMovies.length === 0) {
+        noResults.style.display = 'block';
+      } else {
         noResults.style.display = 'none';
-        
-        setTimeout(() => {
-          // Filter movies based on category and search term
-          filteredMovies = Array.from(movies).filter(movie => {
-            const matchesCategory = category === 'all' || movie.dataset.category === category;
-            const movieTitle = movie.querySelector('h3').textContent.toLowerCase();
-            const matchesSearch = searchTerm === '' || movieTitle.includes(searchTerm.toLowerCase());
-            
-            return matchesCategory && matchesSearch;
-          });
-          
-          // Show first page
-          showPage(currentPage);
-          
-          // Update active button
-          buttons.forEach(btn => {
-            if (btn.dataset.category === category) {
-              btn.classList.add('active');
-            } else {
-              btn.classList.remove('active');
-            }
-          });
-        }, 300);
       }
+    }, 300);
+  }
+  
+  // Function to update pagination buttons
+  function updatePaginationButtons() {
+    const totalPages = calculateTotalPages();
+    
+    currentPageEl.textContent = currentPage;
+    totalPagesEl.textContent = totalPages;
+    
+    // Enable/disable buttons
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+  }
+  
+  // Function to check if movie belongs to category
+  function movieBelongsToCategory(movie, category) {
+    if (category === 'all') return true;
+    
+    // Get categories from data-category attribute
+    const movieCategories = movie.dataset.category.split(' ');
+    
+    // Check if the selected category is in movie's categories
+    return movieCategories.includes(category);
+  }
+  
+  // Function to filter movies
+  function filterMovies(category, searchTerm) {
+    currentCategory = category;
+    currentSearchTerm = searchTerm;
+    currentPage = 1;
+    
+    // Show loading state
+    loading.style.display = 'block';
+    noResults.style.display = 'none';
+    
+    setTimeout(() => {
+      // Filter movies based on category and search term
+      filteredMovies = Array.from(movies).filter(movie => {
+        const matchesCategory = movieBelongsToCategory(movie, category);
+        const movieTitle = movie.querySelector('h3').textContent.toLowerCase();
+        const matchesSearch = searchTerm === '' || movieTitle.includes(searchTerm.toLowerCase());
+        
+        return matchesCategory && matchesSearch;
+      });
       
-      // Add event listeners to category buttons
+      // Show first page
+      showPage(currentPage);
+      
+      // Update active button
       buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const category = btn.dataset.category;
-          filterMovies(category, currentSearchTerm);
-        });
-      });
-      
-      // Add event listener to search input
-      searchInput.addEventListener('input', () => {
-        const searchTerm = searchInput.value.trim();
-        filterMovies(currentCategory, searchTerm);
-      });
-      
-      // Add event listeners to pagination buttons
-      prevBtn.addEventListener('click', () => {
-        if (currentPage > 1) {
-          currentPage--;
-          showPage(currentPage);
+        if (btn.dataset.category === category) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
         }
       });
-      
-      nextBtn.addEventListener('click', () => {
-        const totalPages = calculateTotalPages();
-        if (currentPage < totalPages) {
-          currentPage++;
-          showPage(currentPage);
-        }
-      });
-      
-      // Initialize with all movies showing
-      filterMovies('all', '');
+    }, 300);
+  }
+  
+  // Add event listeners to category buttons
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.dataset.category;
+      filterMovies(category, currentSearchTerm);
     });
+  });
+  
+  // Add event listener to search input
+  searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.trim();
+    filterMovies(currentCategory, searchTerm);
+  });
+  
+  // Add event listeners to pagination buttons
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
+    }
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    const totalPages = calculateTotalPages();
+    if (currentPage < totalPages) {
+      currentPage++;
+      showPage(currentPage);
+    }
+  });
+  
+  // Initialize with all movies showing
+  filterMovies('all', '');
+});
   </script>
 
 </body>
