@@ -151,6 +151,7 @@
       text-decoration: none;
       display: block;
       height: 100%;
+      cursor: pointer;
     }
     .movie a:hover h3 {
       color: var(--primary-color);
@@ -178,6 +179,13 @@
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
+    }
+
+    /* External Link Indicator */
+    .external-link::after {
+      content: " ↗";
+      font-size: 0.8em;
+      opacity: 0.7;
     }
 
     /* Pagination */
@@ -395,112 +403,112 @@
     <div class="no-results">No movies found in this category.</div>
 
     <div class="movie" data-category="bollywood pa">
-      <a href="https://saiyaara.edgeone.app/" target="_blank">
-        <img src="https://m.media-amazon.com/images/M/MV5BMTk2ZmFhYjctYWZiYy00N2IxLWEzMWItZGRiMDY4ZDQwZWFlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+      <a href="https://saiyaara.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTk2ZmFhYjctYWZiYy00N2IxLWEzMWItZGRiMDY4ZDQwZWFlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Saiyaara movie poster">
         <h3>Saiyaara (2025) HD</h3>
       </a>
     </div>
     
     <div class="movie" data-category="sou">
-      <a href="https://itlykadai.edgeone.app/" target="_blank">
-        <img src="https://m.media-amazon.com/images/M/MV5BODFjNjJmODctZWZjZS00NGU2LWJhMjgtMjQzODY2ZDI0MzA2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+      <a href="https://itlykadai.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://m.media-amazon.com/images/M/MV5BODFjNjJmODctZWZjZS00NGU2LWJhMjgtMjQzODY2ZDI0MzA2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Idly Kadai movie poster">
         <h3>Idly Kadai (2025) Hindi</h3>
       </a>
     </div>
     
     <div class="movie" data-category="bollywood">
-      <a href="https://gofile.io/d/XCahU3" target="_blank">
-        <img src="https://m.media-amazon.com/images/M/MV5BY2I5NGQ4YjMtY2MxZC00YjM0LWJmYTItMTBjNDkzZGY3ZWI1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+      <a href="https://gofile.io/d/XCahU3" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://m.media-amazon.com/images/M/MV5BY2I5NGQ4YjMtY2MxZC00YjM0LWJmYTItMTBjNDkzZGY3ZWI1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Son of Sardaar 2 movie poster">
         <h3>Son of Sardaar 2 (2025) HD</h3>
       </a>
     </div> 
     
     <div class="movie" data-category="sou">
-      <a href="https://informkaduva.edgeone.app/" target="_blank">
-        <img src="https://images.plex.tv/photo?size=large-1280&url=https://metadata-static.plex.tv/0/gracenote/00ed5222bc805f3e6fcbbccdc8225c0d.jpg" alt="">
+      <a href="https://informkaduva.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://images.plex.tv/photo?size=large-1280&url=https://metadata-static.plex.tv/0/gracenote/00ed5222bc805f3e6fcbbccdc8225c0d.jpg" alt="Kaduva movie poster">
         <h3>Kaduva (2022) Hindi</h3>
       </a>
     </div>
 
     <div class="movie" data-category="sou">
-      <a href="https://ogcall.edgeone.app/" target="_blank">
-        <img src="https://m.media-amazon.com/images/M/MV5BM2FkZWRmZWQtYTExNC00MjU1LThjOTktMDBhMDA2Y2U5YzdhXkEyXkFqcGc@._V1_.jpg" alt="">
+      <a href="https://ogcall.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://m.media-amazon.com/images/M/MV5BM2FkZWRmZWQtYTExNC00MjU1LThjOTktMDBhMDA2Y2U5YzdhXkEyXkFqcGc@._V1_.jpg" alt="They Call Him OG movie poster">
         <h3>They Call Him OG (2025) Hindi</h3>
       </a>
     </div>
     
     <div class="movie" data-category="sou">
-      <a href="https://shakhtit.edgeone.app/" target="_blank">
-        <img src="https://m.media-amazon.com/images/M/MV5BM2UxYjJjYzgtNzAyMi00MDFiLWI0NGQtNGUzY2IzMTMzZmZjXkEyXkFqcGc@._V1_.jpg" alt="">
+      <a href="https://shakhtit.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://m.media-amazon.com/images/M/MV5BM2UxYjJjYzgtNzAyMi00MDFiLWI0NGQtNGUzY2IzMTMzZmZjXkEyXkFqcGc@._V1_.jpg" alt="Shakthi Thirumagan movie poster">
         <h3>Shakthi Thirumagan (2025) Hindi</h3>
       </a>
     </div>
     
     <div class="movie" data-category="web">
-      <a href="https://raisingvoices2024.edgeone.app/" target="_blank">
-        <img src="https://images.justwatch.com/poster/319870063/s718/raising-voices.jpg" alt="">
+      <a href="https://raisingvoices2024.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://images.justwatch.com/poster/319870063/s718/raising-voices.jpg" alt="Raising Voices series poster">
         <h3>Raising Voices S1 (2024) Hindi</h3>
       </a>
     </div>
 
     <div class="movie" data-category="web">
-      <a href="https://unburieds1.edgeone.app/" target="_blank">
-        <img src="https://m.media-amazon.com/images/M/MV5BYTUwZTc1MTYtMjg2MC00MjYzLWIwOGUtZDEwN2QxY2ExNzI2XkEyXkFqcGc@._V1_SX500.jpg" alt="">
+      <a href="https://unburieds1.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://m.media-amazon.com/images/M/MV5BYTUwZTc1MTYtMjg2MC00MjYzLWIwOGUtZDEwN2QxY2ExNzI2XkEyXkFqcGc@._V1_SX500.jpg" alt="Unburied series poster">
         <h3>Unburied AKA Cometierra S1 Hindi</h3>
       </a>
     </div>
     
     <div class="movie" data-category="hollywood">
-      <a href="https://juno2007.edgeone.app/" target="_blank">
-        <img src="https://m.media-amazon.com/images/M/MV5BMTIwMDgwODc5Nl5BMl5BanBnXkFtZTYwMjQzMDM4._V1_SX500.jpg" alt="IT: Welcome to Derry poster">
+      <a href="https://juno2007.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTIwMDgwODc5Nl5BMl5BanBnXkFtZTYwMjQzMDM4._V1_SX500.jpg" alt="Juno movie poster">
         <h3>Juno (2007) Hindi</h3>
       </a>
     </div>
     
     <div class="movie" data-category="pj">
-      <a href="https://lakadbaggy2025.edgeone.app/" target="_blank">
-        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7makjU9koZIvcIQ4dyAvPckvYYJqih6eaeZ1nU5M1K09jyes1b1NCxOfw6S6JrzwfIp7RY1ANK16zfP98XTzFk7qvlivHJEwi-XivoN6KIr-ro2AJXjeXGtWHIAqtNQpyTSZmeEDl1D6PLAsIoqP7kR8whDyaUD6XzDSsCwct1-wneyss8HUlor92Tg9U/s16000/Lakadbaggey.jpg" alt="The Witcher Season 4 poster">
+      <a href="https://lakadbaggy2025.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7makjU9koZIvcIQ4dyAvPckvYYJqih6eaeZ1nU5M1K09jyes1b1NCxOfw6S6JrzwfIp7RY1ANK16zfP98XTzFk7qvlivHJEwi-XivoN6KIr-ro2AJXjeXGtWHIAqtNQpyTSZmeEDl1D6PLAsIoqP7kR8whDyaUD6XzDSsCwct1-wneyss8HUlor92Tg9U/s16000/Lakadbaggey.jpg" alt="LakadBaggy movie poster">
         <h3>LakadBaggy (2025) In Hindi</h3>
       </a>
     </div>
     
     <div class="movie" data-category="web">
-      <a href="https://thewitchers4all.edgeone.app/" target="_blank">
+      <a href="https://thewitchers4all.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
         <img src="https://m.media-amazon.com/images/M/MV5BOTQzMzNmMzUtODgwNS00YTdhLTg5N2MtOWU1YTc4YWY3NjRlXkEyXkFqcGc@._V1_SX500.jpg" alt="The Witcher Season 4 poster">
         <h3>The Witcher S4 (Hindi) All</h3>
       </a>
     </div>
     
     <div class="movie" data-category="bollywood">
-      <a href="https://thetajstory.edgeone.app/" target="_blank">
+      <a href="https://thetajstory.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
         <img src="https://m.media-amazon.com/images/M/MV5BOWI3NDUzMGUtODAxOC00ZWY3LTk2ZmQtODIxY2U3OWY0YjMzXkEyXkFqcGc@._V1_.jpg" alt="The Taj Story poster">
         <h3>The Taj Story (2025) HD</h3>
       </a>
     </div>
     
     <div class="movie" data-category="hollywood">
-      <a href="https://itwelcometoderry.edgeone.app/" target="_blank">
+      <a href="https://itwelcometoderry.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL8ZoO15N9okSLMX83Q3RgXBAgRr7BEjCF4uz67zePJK3SI5m8K1ic_KiFpWoepqA1ROvu8tIDBqOfqTfv78WTUAxGrQQoo5es5PU6MWANbwEaohWJ04mHRE2TLknI6JGPVDYI2sz7HMsEeAYifFgdYvpgj3lB_yJtn11nIMnhaoVotNDT50zSLhStDbHy/s16000/elcome%20to%20Derry%20(2025).jpg" alt="IT: Welcome to Derry poster">
         <h3>IT: Welcome to Derry (2025) Hindi</h3>
       </a>
     </div>
     
     <div class="movie" data-category="pj">
-      <a href="https://gurunanakjahazhd.edgeone.app/" target="_blank">
+      <a href="https://gurunanakjahazhd.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgdQyigCBEuZnep-n-GGkKdBjuHghXjJlG9ZKMEyJNL9ftvU_6vqZvksbjTjSCxChYW1HVE5j3ZLayhXKsVlDIYGTYIwoGY2U4lFeqEzT-7GKKRrF18ksNBsBoj_vqc3GT76C5IP4nzhFXYGneya36yztey6zD5DTSz_y-Z_SBLpkTXhsjnpDxUEq-M0t3O/s16000/Guru%20Nanak%20Jahaz.jpg" alt="Guru Nanak Jahaz poster">
         <h3>Guru Nanak Jahaz (2025)</h3>
       </a>
     </div>
     
     <div class="movie" data-category="an">
-      <a href="https://gachiakutaanime.edgeone.app/" target="_blank">
-        <img src="https://m.media-amazon.com/images/M/MV5BYjhiMTI4OTItNTdlMi00NTA3LTkxM2MtZmRkMTMyOTFlNjdiXkEyXkFqcGc@._V1_FMjpg_UY720_.jpg" alt="Hunter x Hunter poster">
+      <a href="https://gachiakutaanime.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
+        <img src="https://m.media-amazon.com/images/M/MV5BYjhiMTI4OTItNTdlMi00NTA3LTkxM2MtZmRkMTMyOTFlNjdiXkEyXkFqcGc@._V1_FMjpg_UY720_.jpg" alt="Gachiakuta anime poster">
         <h3>Gachiakuta S1 (2025) Hindi</h3>
       </a>
     </div>
     
     <div class="movie" data-category="sou">
-      <a href="https://kramp2025.edgeone.app/" target="_blank">
+      <a href="https://kramp2025.edgeone.app/" target="_blank" rel="noopener noreferrer" class="external-link">
         <img src="https://m.media-amazon.com/images/M/MV5BYmExNzNjZTQtNGI2NC00ODZkLWFiNzMtYTdlMzg1MzkzYmZiXkEyXkFqcGc@._V1_.jpg" alt="K Ramp poster">
         <h3>K Ramp (2025) Hindi</h3>
       </a>
@@ -670,6 +678,17 @@
       currentPage++;
       showPage(currentPage);
     }
+  });
+  
+  // Ensure all external links open in new tab
+  document.querySelectorAll('.movie a').forEach(link => {
+    if (!link.getAttribute('target')) {
+      link.setAttribute('target', '_blank');
+    }
+    if (!link.getAttribute('rel')) {
+      link.setAttribute('rel', 'noopener noreferrer');
+    }
+    link.classList.add('external-link');
   });
   
   // Initialize with all movies showing
