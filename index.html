@@ -55,6 +55,32 @@
       text-decoration: none;
     }
 
+    /* Search Bar */
+    .search-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 20px;
+      position: relative;
+    }
+    .search-bar {
+      width: 100%;
+      padding: 12px 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 30px;
+      background: var(--bg-darker);
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    .search-bar:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+    }
+    .search-bar::placeholder {
+      color: var(--text-gray);
+    }
+
     /* Ads */
     .ad-box {
       background: var(--bg-darker);
@@ -304,6 +330,13 @@
       .page-info {
         order: 0;
       }
+      .search-container {
+        padding: 0 15px;
+      }
+      .search-bar {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
     }
     
     @media (max-width: 360px) {
@@ -327,8 +360,13 @@
   <!-- Header -->
   <header>
     <a href="#" class="logo">Watcher Zone</a>
-    <h6>Your favorite collection in Hind</h6>
+    <h6>Your favorite collection in Hindi</h6>
   </header>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input type="text" id="search-input" class="search-bar" placeholder="Search movies by name...">
+  </div>
 
   <!-- Categories -->
   <div class="categories">
@@ -341,78 +379,77 @@
     <button data-category="an">Anime</button>
     <button data-category="kd">K Drama</button>
     <button data-category="tr">Turkey Drama</button>
-      <button data-category="ot">Other Data</button>
+    <button data-category="ot">Other Data</button>
   </div>
 
   <!-- 🔹 Ad Space Between Categories -->
-<div id="frame" style="width: 100%; max-width: 728px; margin: auto; z-index: 99998; height: auto">
+  <div id="frame" style="width: 100%; max-width: 728px; margin: auto; z-index: 99998; height: auto">
     <iframe data-aa='2415838' src='//ad.a-ads.com/2415838/?size=728x90'
         style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto'></iframe>
-</div>
+  </div>
+  
   <!-- Movies -->
   <div class="movies" id="movies-container">
     <div class="loading">Loading movies...</div>
     <div class="no-results">No movies found in this category.</div>
 
-<div class="movie" data-category="bollywood">
-  <a href="https://saiyaara.edgeone.app/" target="_blank">
-    <img src="https://m.media-amazon.com/images/M/MV5BMTk2ZmFhYjctYWZiYy00N2IxLWEzMWItZGRiMDY4ZDQwZWFlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
-    <h3>Saiyaara (2025) HD</h3>
-  </a>
-</div>
-    
-<div class="movie" data-category="sou">
-  <a href="https://itlykadai.edgeone.app/" target="_blank">
-    <img src="https://m.media-amazon.com/images/M/MV5BODFjNjJmODctZWZjZS00NGU2LWJhMjgtMjQzODY2ZDI0MzA2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
-    <h3>Idly Kadai (2025) Hindi</h3>
-  </a>
-</div>
-    
-<div class="movie" data-category="bollywood">
-  <a href="https://gofile.io/d/XCahU3" target="_blank">
-    <img src="https://m.media-amazon.com/images/M/MV5BY2I5NGQ4YjMtY2MxZC00YjM0LWJmYTItMTBjNDkzZGY3ZWI1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
-    <h3>Son of Sardaar 2 (2025) HD</h3>
-  </a>
-</div> 
-    
-<div class="movie" data-category="sou">
-  <a href="https://informkaduva.edgeone.app/" target="_blank">
-    <img src="https://images.plex.tv/photo?size=large-1280&url=https://metadata-static.plex.tv/0/gracenote/00ed5222bc805f3e6fcbbccdc8225c0d.jpg" alt="">
-    <h3>Kaduva (2022) Hindi</h3>
-  </a>
-</div>
-
-    
-<div class="movie" data-category="sou">
-  <a href="https://ogcall.edgeone.app/" target="_blank">
-    <img src="https://m.media-amazon.com/images/M/MV5BM2FkZWRmZWQtYTExNC00MjU1LThjOTktMDBhMDA2Y2U5YzdhXkEyXkFqcGc@._V1_.jpg" alt="">
-    <h3>They Call Him OG (2025) Hindi</h3>
-  </a>
-</div>
+    <div class="movie" data-category="bollywood">
+      <a href="https://saiyaara.edgeone.app/" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTk2ZmFhYjctYWZiYy00N2IxLWEzMWItZGRiMDY4ZDQwZWFlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+        <h3>Saiyaara (2025) HD</h3>
+      </a>
+    </div>
     
     <div class="movie" data-category="sou">
-  <a href="https://shakhtit.edgeone.app/" target="_blank">
-    <img src="https://m.media-amazon.com/images/M/MV5BM2UxYjJjYzgtNzAyMi00MDFiLWI0NGQtNGUzY2IzMTMzZmZjXkEyXkFqcGc@._V1_.jpg" alt="">
-    <h3>Shakthi Thirumagan (2025) Hindi</h3>
-  </a>
-</div>
+      <a href="https://itlykadai.edgeone.app/" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BODFjNjJmODctZWZjZS00NGU2LWJhMjgtMjQzODY2ZDI0MzA2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+        <h3>Idly Kadai (2025) Hindi</h3>
+      </a>
+    </div>
+    
+    <div class="movie" data-category="bollywood">
+      <a href="https://gofile.io/d/XCahU3" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BY2I5NGQ4YjMtY2MxZC00YjM0LWJmYTItMTBjNDkzZGY3ZWI1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="">
+        <h3>Son of Sardaar 2 (2025) HD</h3>
+      </a>
+    </div> 
+    
+    <div class="movie" data-category="sou">
+      <a href="https://informkaduva.edgeone.app/" target="_blank">
+        <img src="https://images.plex.tv/photo?size=large-1280&url=https://metadata-static.plex.tv/0/gracenote/00ed5222bc805f3e6fcbbccdc8225c0d.jpg" alt="">
+        <h3>Kaduva (2022) Hindi</h3>
+      </a>
+    </div>
+
+    <div class="movie" data-category="sou">
+      <a href="https://ogcall.edgeone.app/" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BM2FkZWRmZWQtYTExNC00MjU1LThjOTktMDBhMDA2Y2U5YzdhXkEyXkFqcGc@._V1_.jpg" alt="">
+        <h3>They Call Him OG (2025) Hindi</h3>
+      </a>
+    </div>
+    
+    <div class="movie" data-category="sou">
+      <a href="https://shakhtit.edgeone.app/" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BM2UxYjJjYzgtNzAyMi00MDFiLWI0NGQtNGUzY2IzMTMzZmZjXkEyXkFqcGc@._V1_.jpg" alt="">
+        <h3>Shakthi Thirumagan (2025) Hindi</h3>
+      </a>
+    </div>
     
     <div class="movie" data-category="web">
-  <a href="https://raisingvoices2024.edgeone.app/" target="_blank">
-    <img src="https://images.justwatch.com/poster/319870063/s718/raising-voices.jpg" alt="">
-    <h3>Raising Voices S1 (2024) Hindi</h3>
-  </a>
-</div>
+      <a href="https://raisingvoices2024.edgeone.app/" target="_blank">
+        <img src="https://images.justwatch.com/poster/319870063/s718/raising-voices.jpg" alt="">
+        <h3>Raising Voices S1 (2024) Hindi</h3>
+      </a>
+    </div>
 
-  
-<div class="movie" data-category="web">
-  <a href="https://unburieds1.edgeone.app/" target="_blank">
-    <img src="https://m.media-amazon.com/images/M/MV5BYTUwZTc1MTYtMjg2MC00MjYzLWIwOGUtZDEwN2QxY2ExNzI2XkEyXkFqcGc@._V1_SX500.jpg" alt="">
-    <h3>Unburied AKA Cometierra S1 Hindi</h3>
-  </a>
-</div>
+    <div class="movie" data-category="web">
+      <a href="https://unburieds1.edgeone.app/" target="_blank">
+        <img src="https://m.media-amazon.com/images/M/MV5BYTUwZTc1MTYtMjg2MC00MjYzLWIwOGUtZDEwN2QxY2ExNzI2XkEyXkFqcGc@._V1_SX500.jpg" alt="">
+        <h3>Unburied AKA Cometierra S1 Hindi</h3>
+      </a>
+    </div>
     
-        <div class="movie" data-category="hollywood">
+    <div class="movie" data-category="hollywood">
       <a href="https://juno2007.edgeone.app/" target="_blank">
         <img src="https://m.media-amazon.com/images/M/MV5BMTIwMDgwODc5Nl5BMl5BanBnXkFtZTYwMjQzMDM4._V1_SX500.jpg" alt="IT: Welcome to Derry poster">
         <h3>Juno (2007) Hindi</h3>
@@ -468,8 +505,6 @@
       </a>
     </div>
     
-    <!-- مزید موویز کے لیے خالی جگہ - آپ اپنی موویز یہاں شامل کر سکتے ہیں -->
-    
   </div>
 
   <!-- Pagination -->
@@ -480,10 +515,11 @@
   </div>
 
   <!-- 🔹 Ad Above Footer -->
-<div id="frame" style="width: 100%; max-width: 728px; margin: auto; z-index: 99998; height: auto">
+  <div id="frame" style="width: 100%; max-width: 728px; margin: auto; z-index: 99998; height: auto">
     <iframe data-aa='2415838' src='//ad.a-ads.com/2415838/?size=728x90'
         style='border:0; padding:0; width:100%; height:90px; overflow:hidden; display: block; margin: auto'></iframe>
-</div>
+  </div>
+  
   <!-- Footer -->
   <footer>
     © 2025 Watcher Zone. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a>
@@ -493,18 +529,19 @@
     document.addEventListener('DOMContentLoaded', function() {
       const buttons = document.querySelectorAll('.categories button');
       const movies = document.querySelectorAll('.movie');
-      const ads = document.querySelectorAll('.ad-box');
       const loading = document.querySelector('.loading');
       const noResults = document.querySelector('.no-results');
       const prevBtn = document.getElementById('prev-btn');
       const nextBtn = document.getElementById('next-btn');
       const currentPageEl = document.getElementById('current-page');
       const totalPagesEl = document.getElementById('total-pages');
+      const searchInput = document.getElementById('search-input');
       
       // Pagination variables
       let currentPage = 1;
       const moviesPerPage = 12;
       let currentCategory = 'all';
+      let currentSearchTerm = '';
       let filteredMovies = [];
       
       // Function to calculate total pages
@@ -560,8 +597,9 @@
       }
       
       // Function to filter movies
-      function filterMovies(category) {
+      function filterMovies(category, searchTerm) {
         currentCategory = category;
+        currentSearchTerm = searchTerm;
         currentPage = 1;
         
         // Show loading state
@@ -569,9 +607,13 @@
         noResults.style.display = 'none';
         
         setTimeout(() => {
-          // Filter movies based on category
+          // Filter movies based on category and search term
           filteredMovies = Array.from(movies).filter(movie => {
-            return category === 'all' || movie.dataset.category === category;
+            const matchesCategory = category === 'all' || movie.dataset.category === category;
+            const movieTitle = movie.querySelector('h3').textContent.toLowerCase();
+            const matchesSearch = searchTerm === '' || movieTitle.includes(searchTerm.toLowerCase());
+            
+            return matchesCategory && matchesSearch;
           });
           
           // Show first page
@@ -592,8 +634,14 @@
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
           const category = btn.dataset.category;
-          filterMovies(category);
+          filterMovies(category, currentSearchTerm);
         });
+      });
+      
+      // Add event listener to search input
+      searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.trim();
+        filterMovies(currentCategory, searchTerm);
       });
       
       // Add event listeners to pagination buttons
@@ -613,7 +661,7 @@
       });
       
       // Initialize with all movies showing
-      filterMovies('all');
+      filterMovies('all', '');
     });
   </script>
 
