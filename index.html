@@ -188,6 +188,40 @@
       opacity: 0.7;
     }
 
+    /* Request Movie Button */
+    .request-container {
+      text-align: center;
+      margin: 30px auto;
+      padding: 0 20px;
+      max-width: 500px;
+    }
+    .request-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+    .request-btn:hover {
+      background: #128C7E;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    }
+    .request-btn:active {
+      transform: translateY(-1px);
+    }
+    .whatsapp-icon {
+      font-size: 1.4rem;
+    }
+
     /* Pagination */
     .pagination {
       display: flex;
@@ -283,6 +317,10 @@
         height: 55px;
         padding: 10px 6px;
       }
+      .request-btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
     }
     
     @media (max-width: 600px) {
@@ -345,6 +383,10 @@
         padding: 10px 15px;
         font-size: 0.9rem;
       }
+      .request-btn {
+        padding: 10px 18px;
+        font-size: 0.95rem;
+      }
     }
     
     @media (max-width: 360px) {
@@ -359,6 +401,10 @@
         font-size: 0.78rem;
         height: 45px;
         padding: 6px 3px;
+      }
+      .request-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -398,6 +444,7 @@
   <div class="movies" id="movies-container">
     <div class="loading">Loading movies...</div>
     <div class="no-results">No movies found in this category.</div>
+
 
 <div class="movie" data-category="kd web">
   <a href="https://datanew671.github.io/watcher-zone/" target="_blank">
@@ -517,7 +564,6 @@
         <h3>K Ramp (2025) Hindi</h3>
       </a>
     </div>
-    
   </div>
 
   <!-- Pagination -->
@@ -540,6 +586,15 @@
      <button data-category="pa">Popular Movies</button>
      <button data-category="ot">Other Data</button>
      </div>
+     
+  <!-- Request Movie Button -->
+  <div class="request-container">
+    <button class="request-btn" id="request-movie-btn">
+      <span class="whatsapp-icon">📱</span>
+      Request a Movie
+    </button>
+  </div>
+
   <!-- Footer -->
   <footer>
     © 2025 Watcher Zone. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Contact Us</a>
@@ -556,6 +611,17 @@
   const currentPageEl = document.getElementById('current-page');
   const totalPagesEl = document.getElementById('total-pages');
   const searchInput = document.getElementById('search-input');
+  const requestMovieBtn = document.getElementById('request-movie-btn');
+  
+  // WhatsApp request functionality
+  requestMovieBtn.addEventListener('click', function() {
+    const phoneNumber = '923007472779';
+    const message = 'Hello bhai, kese ho? I would like to request a movie.';
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappURL, '_blank');
+  });
   
   // Pagination variables
   let currentPage = 1;
