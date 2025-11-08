@@ -99,20 +99,24 @@
     .categories {
       display: flex;
       justify-content: center;
-      gap: 10px;
       flex-wrap: wrap;
       margin: 20px 10px;
       padding: 0 10px;
+      gap: 8px;
     }
     .categories button {
       background: green;
       border: none;
       color: var(--text-light);
-      padding: 8px 15px;
+      padding: 8px 12px;
       border-radius: 5px;
       cursor: pointer;
       font-weight: bold;
       transition: all 0.3s;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      flex: 0 1 auto;
+      min-height: 36px;
     }
     .categories button:hover {
       background: var(--primary-dark);
@@ -321,6 +325,13 @@
         padding: 12px 20px;
         font-size: 1rem;
       }
+      .categories {
+        gap: 6px;
+      }
+      .categories button {
+        padding: 7px 10px;
+        font-size: 0.8rem;
+      }
     }
     
     @media (max-width: 600px) {
@@ -344,6 +355,13 @@
         min-width: 80px;
         font-size: 0.9rem;
       }
+      .categories {
+        gap: 5px;
+      }
+      .categories button {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+      }
     }
     
     @media (max-width: 480px) {
@@ -351,11 +369,12 @@
         font-size: 1.5rem;
       }
       .categories {
-        gap: 5px;
+        gap: 4px;
       }
       .categories button {
-        padding: 6px 10px;
-        font-size: 0.85rem;
+        padding: 6px 8px;
+        font-size: 0.7rem;
+        min-height: 32px;
       }
       .movies {
         grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -406,6 +425,32 @@
         padding: 8px 16px;
         font-size: 0.9rem;
       }
+      .categories {
+        gap: 3px;
+      }
+      .categories button {
+        padding: 5px 6px;
+        font-size: 0.65rem;
+      }
+    }
+
+    /* Special styles for very small screens */
+    @media (max-width: 320px) {
+      .categories {
+        gap: 2px;
+      }
+      .categories button {
+        padding: 4px 5px;
+        font-size: 0.6rem;
+        min-height: 28px;
+      }
+      .movies {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 6px;
+      }
+      .movie img {
+        height: 140px;
+      }
     }
   </style>
 </head>
@@ -444,6 +489,7 @@
     <div class="loading">Loading movies...</div>
     <div class="no-results">No movies found in this category.</div>
 
+    
 <div class="movie" data-category="bollywood">
   <a href="hhttps://thama2025.edgeone.app/" target="_blank">
     <img src="https://m.media-amazon.com/images/M/MV5BOTJiOTdhNTctNjRhYy00YzVjLWExOTQtZmE3OWQxYTJhN2Y5XkEyXkFqcGc@._V1_.jpg" alt="">
@@ -918,9 +964,9 @@
 
   <!-- Pagination -->
   <div class="pagination">
-    <button id="next-btn" disabled>Next</button>
-    <div class="page-info">Page <span id="current-page">1</span> of <span id="total-pages">1</span></div>
     <button id="prev-btn" disabled>Previous</button>
+    <div class="page-info">Page <span id="current-page">1</span> of <span id="total-pages">1</span></div>
+    <button id="next-btn" disabled>Next</button>
   </div>
 
     <div id="frame" style="width: 100%; max-width: 728px; margin: auto; z-index: 99998; height: auto">
@@ -963,6 +1009,7 @@
   const totalPagesEl = document.getElementById('total-pages');
   const searchInput = document.getElementById('search-input');
   const requestMovieBtn = document.getElementById('request-movie-btn');
+  const moviesContainer = document.getElementById('movies-container');
   
   // WhatsApp request functionality
   requestMovieBtn.addEventListener('click', function() {
@@ -980,6 +1027,11 @@
   let currentCategory = 'all';
   let currentSearchTerm = '';
   let filteredMovies = [];
+  
+  // Function to scroll to movies container
+  function scrollToMovies() {
+    moviesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
   
   // Function to calculate total pages
   function calculateTotalPages() {
@@ -1018,6 +1070,9 @@
       } else {
         noResults.style.display = 'none';
       }
+      
+      // Scroll to movies container
+      scrollToMovies();
     }, 300);
   }
   
